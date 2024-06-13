@@ -1,0 +1,41 @@
+export const navbarData = [
+    {
+        content:"Mua hàng và CSKH 1800 8080",
+        link:"/"
+    },
+    {
+        content:"Tìm Siêu Thị (340)",
+        link:"/"
+    },
+    {
+        content:"Nhập địa chỉ để mua hàng giao Siêu Tốc 1h",
+        link:"/"
+    }
+]
+
+export const footerData = [
+    {
+        "Cửa hàng":["Thanh toán tiện lợi","Giao hàng tức thì","Bảo đảm quyền lợi"]
+    },
+    {
+        "Chăm sóc khách hàng":["Tra cứu hoá đơn","Mua & giao nhận Online","Qui định & hình thức thanh toán","Bảo hành & Bảo trì","Đổi trả & Hoàn tiền"]
+    },
+    {
+        "Trang page":["Về chúng tôi","Cửa hàng","Liên hệ","Dịch vụ","Blog"]
+    },
+]
+
+export const detailProduct = {
+    name:"Sữa bột Nubone",
+    image:["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx0pWMi3w72H4-7lvJf5laNUWsZr9bRw1b6Q&s","https://minizon.vn/wp-content/uploads/2023/04/sua-nubone-plus-chinh-hang.jpg","https://product.hstatic.net/200000500815/product/nubone_s2__5_7fc5725cb9a946278107407e4a3dcf8d_master.jpg","https://cf.shopee.vn/file/5e3c9c4d72227995fe2504de50542a88"],
+    from:"sản xuất tại Mỹ",
+    price:550000,
+    sale:0.1,
+    rate:4.8,
+    comment:68,
+}
+export const footerContent1 = "Chào mừng bạn đến với MilMom, lựa chọn tốt nhất cho mẹ và bé!"
+
+export const footerContent2 = "Chúng tôi là một cửa hàng chuyên cung cấp các sản phẩm và dịch vụ đặc biệt để mang đến sức khỏe tốt nhất cho bạn và con của bạn"
+
+export const emptyAvatar =  "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg"
