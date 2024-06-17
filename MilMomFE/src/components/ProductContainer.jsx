@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { formatCurrency } from "../helpers/helper";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-export default function ProductContainer({ product }) {
+function ProductContainer({ product }) {
   return (
     <div className="rounded-xl shadow-lg">
       <div className="rounded-xl h-60 overflow-hidden">
@@ -26,3 +26,5 @@ export default function ProductContainer({ product }) {
     </div>
   );
 }
+
+export default memo(ProductContainer)
