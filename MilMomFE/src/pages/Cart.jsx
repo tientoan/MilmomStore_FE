@@ -3,6 +3,7 @@ import Table, { cartHeader } from '../components/Table'
 import { detailProduct } from '../data/data'
 import MilMomBtn from '../components/MilMomBtn'
 import ProductContainer from '../components/ProductContainer'
+import OtherProducts from '../components/OtherProducts'
 
 export default function Cart() {
   return (
@@ -33,37 +34,7 @@ export default function Cart() {
             </div>
         </div>
 
-        <div>
-            <div className='text-red-300 font-bold text-3xl'>Các sản phẩm khác</div>
-            <div className='text-neutral-400 font-bold text-2xl text-right'>Xem tất cả</div>
-
-            <div className='flex flex-wrap'>
-                <div className='w-1/4 px-5 mb-10'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-                <div className='w-1/4 px-5'>
-                    <ProductContainer product={detailProduct}/>
-                </div>
-            </div>
-        </div>
+        <OtherProducts />
     </div>
   )
 }

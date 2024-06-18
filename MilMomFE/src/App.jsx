@@ -12,6 +12,9 @@ import Home from "./pages/Home";
 import AuthLayout from "./layouts/authLayout";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import UnvalidEmail from "./pages/Auth/UnvalidEmail";
+import ValidEmail from "./pages/Auth/ValidEmail";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,7 +22,7 @@ function App() {
       <Route>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="productDetail" element={<ProductDetail />} />
+          <Route path="productDetail/:id" element={<ProductDetail />} />
           <Route path="cart" element={<Cart />} />
         </Route>
 
@@ -30,6 +33,12 @@ function App() {
         <Route element={<AuthLayout width="w-1/3"/>}>
           <Route path="register" element={<Register />}/>
         </Route>
+
+        <Route path="forgotPassword" element={<ForgotPassword />}/>
+
+        <Route path="unvalidEmail" element={<UnvalidEmail />}/>
+
+        <Route path="validEmail" element={<ValidEmail />}/>
       </Route>
     )
   );

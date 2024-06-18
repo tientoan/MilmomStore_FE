@@ -26,7 +26,7 @@ export default function Login() {
         </button>
         <MilMomBtn content="Đăng ký" className="w-4/5 mb-5" />
         <div className="text-center w-4/5 mb-3">
-          <Link className="text-neutral-500 underline underline-offset-4">
+          <Link to={"/forgotPassword"} className="text-neutral-500 underline underline-offset-4">
             Bạn quên mật khẩu ?
           </Link>
         </div>
