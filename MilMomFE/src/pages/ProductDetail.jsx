@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { DEFAULT_IMG, detailProduct, emptyAvatar } from "../data/data";
 import { formatCurrency } from "../helpers/helper";
 import MilMomBtn from "../components/MilMomBtn";
@@ -7,31 +7,35 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useParams } from "react-router-dom";
 import { getService } from "../api/services";
 import { getProductDetail } from "../api/apis";
-
+import SliderReact from "../components/Slider";
 
 export default function ProductDetail() {
   const [product, setProduct] = useState();
+  const [selectedImg, setSelectedImg] = useState(DEFAULT_IMG);
   const params = useParams();
+
+  const changeSelectedImage = useCallback((img) => {
+    setSelectedImg(img);
+  });
 
   useEffect(() => {
     getService(getProductDetail, [params?.id]).then((result) => {
       setProduct(result.data);
+      setSelectedImg(result.data.imageProducts[0].image);
     });
   }, [params]);
   return (
     <div className="py-10 px-40">
-      <div className="flex items-center">
+      <div className="flex items-center mb-20">
         <div className="w-1/2">
           <img
             className="mb-5 w-full"
             src={
-              product?.imageProducts
-                ? product.imageProducts[0].image
-                : DEFAULT_IMG
+              selectedImg
             }
           />
 
-         
+          <SliderReact onClickImg={changeSelectedImage} images={product?.imageProducts} />
         </div>
         <div className="w-1/2 px-10">
           <div className="text-4xl font-bold mb-3">{product?.name}</div>
@@ -120,15 +124,21 @@ export default function ProductDetail() {
           <div className="p-5 font-medium border border-neutral-500">
             Hướng dẫn sử dụng
           </div>
-          <div className="p-5 font-medium border border-neutral-500 col-span-3">{product?.instruction}</div>
+          <div className="p-5 font-medium border border-neutral-500 col-span-3">
+            {product?.instruction}
+          </div>
           <div className="p-5 font-medium border border-neutral-500 bg-neutral-100">
             Trọng lượng sản phẩm
           </div>
-          <div className="p-5 font-medium border border-neutral-500 col-span-3">{product?.weight} g</div>
+          <div className="p-5 font-medium border border-neutral-500 col-span-3">
+            {product?.weight} g
+          </div>
           <div className="p-5 font-medium border border-neutral-500">
             Thành phần
           </div>
-          <div className="p-5 font-medium border border-neutral-500 col-span-3">{product?.ingredient}</div>
+          <div className="p-5 font-medium border border-neutral-500 col-span-3">
+            {product?.ingredient}
+          </div>
         </div>
       </div>
 
@@ -152,7 +162,6 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-    
     </div>
   );
 }

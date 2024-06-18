@@ -37,7 +37,7 @@ export default function Home() {
       <OtherProducts />
 
       <div className="my-10">
-        <div className="text-4xl font-medium ">
+        <div className="text-4xl mb-10 font-medium ">
           Các chủ đề dành cho mẹ và bé
         </div>
         <div className="flex">
