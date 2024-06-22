@@ -4,18 +4,42 @@ import { formatCurrency } from "../helpers/helper";
 import MilMomBtn from "../components/MilMomBtn";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useParams } from "react-router-dom";
-import { getService } from "../api/services";
-import { getProductDetail } from "../api/apis";
+import { useNavigate, useParams } from "react-router-dom";
+import { getService, postService } from "../api/services";
+import { getProductDetail, get_del_Cart_byAccountId } from "../api/apis";
 import SliderReact from "../components/Slider";
+import { toast } from "react-toastify";
+import { useRecoilState } from "recoil";
+import { accountAtom } from "../atom/accountAtom";
 
 export default function ProductDetail() {
+  const [account, setAccount] = useRecoilState(accountAtom);
   const [product, setProduct] = useState();
   const [selectedImg, setSelectedImg] = useState(DEFAULT_IMG);
   const params = useParams();
-
+  const navigate = useNavigate();
   const changeSelectedImage = useCallback((img) => {
     setSelectedImg(img);
+  });
+
+  const addToCart = useCallback((isNavigate = false) => {
+    if (!account) {
+      toast.info("Đăng nhập để có thể mua hàng");
+      return;
+    } else {
+    }
+
+    postService(get_del_Cart_byAccountId, {
+      accountId: account?.userID,
+      productId: params?.id,
+    })
+      .then(() => {
+        toast.info(`${product.name} đã được thêm vào giỏ hàng của bạn`);
+        if (isNavigate==true) navigate("/cart");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 
   useEffect(() => {
@@ -28,14 +52,12 @@ export default function ProductDetail() {
     <div className="py-10 px-40">
       <div className="flex items-center mb-20">
         <div className="w-1/2">
-          <img
-            className="mb-5 w-full"
-            src={
-              selectedImg
-            }
-          />
+          <img className="mb-5 w-full" src={selectedImg} />
 
-          <SliderReact onClickImg={changeSelectedImage} images={product?.imageProducts} />
+          <SliderReact
+            onClickImg={changeSelectedImage}
+            images={product?.imageProducts}
+          />
         </div>
         <div className="w-1/2 px-10">
           <div className="text-4xl font-bold mb-3">{product?.name}</div>
@@ -75,6 +97,9 @@ export default function ProductDetail() {
 
           <div className="flex mb-20">
             <MilMomBtn
+              onClick={async () => {
+                addToCart(true);
+              }}
               content="Mua Ngay"
               text="text-white"
               px="px-5"
@@ -82,6 +107,7 @@ export default function ProductDetail() {
             />
 
             <div
+              onClick={addToCart}
               className={`bg-red-300 rounded-md text-white font-medium px-5 py-2`}
             >
               <div className="flex items-center">

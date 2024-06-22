@@ -7,6 +7,7 @@ import topic3 from '../assets/topic3.png'
 import topic4 from '../assets/topic4.png'
 import topic5 from '../assets/topic5.png'
 import topic6 from '../assets/topic6.png'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export const DEFAULT_IMG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx0pWMi3w72H4-7lvJf5laNUWsZr9bRw1b6Q&s"
 export const navbarData = [
@@ -96,5 +97,20 @@ export const momMilTopics = [
         content:"Thông tin bệnh viện phòng khám",
         link:"",
         imageURL:topic6
+    }
+]
+
+export const blankAvatar = 'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg'
+
+export const sideBarAdminData = [
+    {
+        content:"Dashboard",
+        icon: <Icon icon="clarity:house-line" />,
+        link:"/Admin"
+    },
+    {
+        content:"User Account",
+        icon: <Icon icon="mdi:user" />,
+        link:"/UserAccount"
     }
 ]

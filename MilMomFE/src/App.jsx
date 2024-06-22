@@ -17,10 +17,20 @@ import UnvalidEmail from "./pages/Auth/UnvalidEmail";
 import ValidEmail from "./pages/Auth/ValidEmail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilState } from "recoil";
 import ProtectedLayout from "./layouts/protectedLayout";
+import ProtectedAuthLayout from "./layouts/protectedAuthLayout";
+import { provinesAtom } from "./atom/provinesAtom";
+import { useEffect } from "react";
+import axios from "axios";
+import PaymentSuccessful from "./pages/PaymentSuccessful";
 
 function App() {
+  const [provines, setProvines] = useRecoilState(provinesAtom)
+
+  useEffect(() => {
+     axios.get('https://esgoo.net/api-tinhthanh/4/0.htm').then(result => setProvines(result.data.data))
+  },[])
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -32,7 +42,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
 
-        <Route element={<ProtectedLayout />}>
+        <Route element={<ProtectedAuthLayout />}>
           <Route path="forgotPassword" element={<ForgotPassword />} />
 
           <Route path="unvalidEmail" element={<UnvalidEmail />} />
@@ -43,18 +53,25 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="productDetail/:id" element={<ProductDetail />} />
-          <Route path="cart" element={<Cart />} />
+
+          <Route element={<ProtectedLayout />}>
+            <Route path="cart" element={<Cart />} />
+          </Route>
         </Route>
+
+        <Route element={<ProtectedLayout />}>
+            <Route path="paymentsuccess/:id" element={<PaymentSuccessful />} />
+          </Route>
       </Route>
     )
   );
 
   return (
     <>
-      <RecoilRoot>
+      
         <RouterProvider router={router} />
         <ToastContainer />
-      </RecoilRoot>
+      
     </>
   );
 }

@@ -20,7 +20,7 @@ const OtherProducts = () => {
 
       <div className="flex flex-wrap">
         {products?.slice(0, 8)?.map((pro, index) => (
-          <div onClick={() => navigate(`productDetail/${pro.productId}`)} key={index} className="w-1/4 px-5 mb-10">
+          <div onClick={() => navigate(`/productDetail/${pro.productId}`)} key={index} className="w-1/4 px-5 mb-10">
             <ProductContainer product={pro} />
           </div>
         ))}
