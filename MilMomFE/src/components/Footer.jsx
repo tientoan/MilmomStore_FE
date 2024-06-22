@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { footerContent1, footerContent2, footerData } from "../data/data";
 import MilMomBtn from "./MilMomBtn";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import logo from "../assets/logo.png";
 import milmom from "../assets/milmom.png";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <div className="flex py-20 px-20 tracking-wide">
       <div className="w-1/5 text-wrap px-10">
@@ -55,3 +55,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default memo(Footer)
