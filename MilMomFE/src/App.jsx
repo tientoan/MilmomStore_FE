@@ -24,13 +24,17 @@ import { provinesAtom } from "./atom/provinesAtom";
 import { useEffect } from "react";
 import axios from "axios";
 import PaymentSuccessful from "./pages/PaymentSuccessful";
+import AdminLayout from "./layouts/adminLayout";
+import Dashboard from "./pages/Admin/Dashboard";
 
 function App() {
-  const [provines, setProvines] = useRecoilState(provinesAtom)
+  const [provines, setProvines] = useRecoilState(provinesAtom);
 
   useEffect(() => {
-     axios.get('https://esgoo.net/api-tinhthanh/4/0.htm').then(result => setProvines(result.data.data))
-  },[])
+    axios
+      .get("https://esgoo.net/api-tinhthanh/4/0.htm")
+      .then((result) => setProvines(result.data.data));
+  }, []);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -60,18 +64,20 @@ function App() {
         </Route>
 
         <Route element={<ProtectedLayout />}>
-            <Route path="paymentsuccess/:id" element={<PaymentSuccessful />} />
-          </Route>
+          <Route path="paymentsuccess/:id" element={<PaymentSuccessful />} />
+        </Route>
+
+        <Route element={<AdminLayout />}>
+          <Route path="dashboard" element={<Dashboard />}/>
+        </Route>
       </Route>
     )
   );
 
   return (
     <>
-      
-        <RouterProvider router={router} />
-        <ToastContainer />
-      
+      <RouterProvider router={router} />
+      <ToastContainer />
     </>
   );
 }

@@ -104,9 +104,9 @@ export const blankAvatar = 'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186
 
 export const sideBarAdminData = [
     {
-        content:"Dashboard",
+        content:"dashboard",
         icon: <Icon icon="clarity:house-line" />,
-        link:"/Admin"
+        link:"/dashboard"
     },
     {
         content:"User Account",
