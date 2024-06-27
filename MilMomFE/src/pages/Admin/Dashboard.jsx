@@ -1,10 +1,22 @@
 import React from "react";
 import AreaChartComponent from "../../components/AreaChart";
 import { PieChartComponent, data } from "../../components/Piechart";
+import { staticDashboard } from "../../data/data";
 
 export default function Dashboard() {
   return (
-    <div>
+    <div className="py-10">
+      <div className="flex items-center">
+        {staticDashboard.map(info => <div className="rounded-xl w-1/4 mr-10 bg-white px-5 py-7 flex items-center">
+          <div className={`${info.iconColor} p-3 rounded-full mr-3 text-white text-xl`}>{info.icon}</div>
+          <div>
+            <div className="text-xs font-light mb-1 text-neutral-500">{info.content}</div>
+            <div className="font-medium text-xl tracking-wider">{info.value}</div>
+          </div>
+        </div>
+      
+      )}
+      </div>
       <div className="flex py-10">
         <div className="w-2/3 mr-5 rounded-xl border font-medium p-5 bg-white">
           <div className="flex items-center">

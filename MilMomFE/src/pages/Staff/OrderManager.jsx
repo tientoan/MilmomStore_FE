@@ -1,29 +1,23 @@
 import React from "react";
-import { accountList, accountType } from "../../data/data";
+import { accountList, accountType, orderList } from "../../data/data";
 import MilMomBtn from "../../components/MilMomBtn";
 import Pagination from "../../components/Pagination";
-import ManagerTable, { userManagerHeader } from "../../components/ManagerTable";
+import { getCurrentDate } from "../../helper/helper";
+import ManagerTable, { orderManagerHeader } from "../../components/ManagerTable";
 
-export default function UserManager() {
+export default function OrderManager() {
   return (
     <div className="py-5">
         <div className="py-5 px-20 bg-white rounded-lg min-h-screen text-sm">
       <div className="text-2xl font-medium mb-5">
-        Quản lý tài khoản người dùng
+      Đơn Hàng - Ngày {getCurrentDate()}
       </div>
       <div className="flex items-center justify-between mb-10">
-        <div className="flex items-center w-5/6">
-          <div className="font-medium bg-slate-100 px-3 py-1 mr-10">
-            <span className="px-3 py-3">View all</span>
-            {accountType.map((type) => (
-              <span className="px-3 py-3">{type.content}</span>
-            ))}
-          </div>
+          
           <input
             className="border rounded-md px-3 py-1 text-neutral-500 w-2/5"
-            placeholder="tìm kiếm tài khoản người dùng"
+            placeholder="tìm kiếm đơn hàng theo id"
           />
-        </div>
         <MilMomBtn
           content="Tạo mới"
           text="text-white"
@@ -31,7 +25,7 @@ export default function UserManager() {
           className="rounded-lg"
         />
       </div>
-      <ManagerTable datas={accountList} headerTable={userManagerHeader} />
+      <ManagerTable datas={orderList} headerTable={orderManagerHeader} />
 
       <div className="mt-20">
         <Pagination />

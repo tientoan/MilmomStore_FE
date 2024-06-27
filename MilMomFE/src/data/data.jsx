@@ -8,6 +8,7 @@ import topic4 from '../assets/topic4.png'
 import topic5 from '../assets/topic5.png'
 import topic6 from '../assets/topic6.png'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { getCurrentDate } from '../helper/helper'
 
 export const DEFAULT_IMG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx0pWMi3w72H4-7lvJf5laNUWsZr9bRw1b6Q&s"
 export const navbarData = [
@@ -115,6 +116,29 @@ export const sideBarAdminData = [
     }
 ]
 
+export const sideBarStaffData = [
+    {
+        content:"Đơn hàng trong ngày",
+        link:"/orderManager"
+    },
+    {
+        content:"Xử Lý Report",
+        link:"/reportHandle"
+    },
+    {
+        content:"Bài viết",
+        link:"/postManager"
+    },
+    {
+        content:"Slider",
+        link:"/slider"
+    },
+    {
+        content:"Yêu cầu tư vấn (chat)",
+        link:"/chat"
+    }
+]
+
 export const accountType = [
     {
         content:"Staff"
@@ -151,5 +175,86 @@ export const accountList = [
         phone:"0123456789",
         roleId:"ADMIN",
         status:"ACTIVE"
+    }
+]
+
+export const orderList = [
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        phone:"0123456789",
+        createdDate: getCurrentDate(),
+        address:"TP HCM",
+        detail:""
+    },
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        phone:"0123456789",
+        createdDate: getCurrentDate(),
+        address:"TP HCM",
+        detail:""
+    },
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        phone:"0123456789",
+        createdDate: getCurrentDate(),
+        address:"TP HCM",
+        detail:""
+    },
+]
+
+export const reportList = [
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        phone:"0123456789",
+        createdDate: getCurrentDate(),
+        content:"giao thiếu sản phẩm",
+        detail:""
+    },
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        phone:"0123456789",
+        createdDate: getCurrentDate(),
+        content:"giao thiếu sản phẩm",
+        detail:""
+    },
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        phone:"0123456789",
+        createdDate: getCurrentDate(),
+        content:"giao thiếu sản phẩm",
+        detail:""
+    },
+]
+
+export const staticDashboard = [
+    {
+        icon: <Icon icon="clarity:wallet-line" />,
+        content: "Total Cash Balance",
+        value:"5,202,000đ",
+        iconColor:"bg-blue-300"
+    },
+    {
+        icon: <Icon icon="bx:coin-stack" />,
+        content: "Total Deposite",
+        value:"9,455,000đ",
+        iconColor:"bg-yellow-300"
+    },
+    {
+        icon: <Icon icon="uil:money-withdraw" />,
+        content: "Total Withdraw",
+        value:"12,100,000đ",
+        iconColor:"bg-red-300"
+    },
+    {
+        icon: <Icon icon="bx:bar-chart" />,
+        content: "Growth",
+        value:"5.6%",
+        iconColor:"bg-green-300"
     }
 ]
