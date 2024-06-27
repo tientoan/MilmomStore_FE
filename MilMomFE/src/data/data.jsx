@@ -111,6 +111,45 @@ export const sideBarAdminData = [
     {
         content:"User Account",
         icon: <Icon icon="mdi:user" />,
-        link:"/UserAccount"
+        link:"/userManager"
+    }
+]
+
+export const accountType = [
+    {
+        content:"Staff"
+    },
+    {
+        content:"Manager"
+    },
+    {
+        content:"Member"
+    }
+]
+
+export const accountList = [
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        email:"XYZ@GMAIL.COM",
+        phone:"0123456789",
+        roleId:"ADMIN",
+        status:"ACTIVE"
+    },
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        email:"XYZ@GMAIL.COM",
+        phone:"0123456789",
+        roleId:"ADMIN",
+        status:"ACTIVE"
+    },
+    {
+        id:"id00001",
+        name:"Nguyễn Văn A",
+        email:"XYZ@GMAIL.COM",
+        phone:"0123456789",
+        roleId:"ADMIN",
+        status:"ACTIVE"
     }
 ]

@@ -26,6 +26,7 @@ import axios from "axios";
 import PaymentSuccessful from "./pages/PaymentSuccessful";
 import AdminLayout from "./layouts/adminLayout";
 import Dashboard from "./pages/Admin/Dashboard";
+import UserManager from "./pages/Admin/UserManager";
 
 function App() {
   const [provines, setProvines] = useRecoilState(provinesAtom);
@@ -69,6 +70,7 @@ function App() {
 
         <Route element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />}/>
+          <Route path="userManager" element={<UserManager />}/>
         </Route>
       </Route>
     )
