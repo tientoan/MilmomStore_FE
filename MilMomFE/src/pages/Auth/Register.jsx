@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { postService } from "../../api/services";
 import { login, register } from "../../api/apis";
+import { isValidEmail } from "../../helper/helper";
 
 export default function Register() {
   const [account, setAccount] = useState({
@@ -18,7 +19,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const SignUp = useCallback(() => {
-    const Entries = account.entries();
+    const Entries = Object.entries(account);
 
     for (const [key, value] of Entries) {
       if (!value || value?.trim() == "") {
@@ -32,8 +33,8 @@ export default function Register() {
       return;
     }
 
-    if (account?.password?.length < 8 || account?.password?.length > 32) {
-      toast.warning(`mật khẩu phải ở trong khoảng 8 - 32 kí tự`);
+    if (account?.password?.length < 12 || account?.password?.length > 32) {
+      toast.warning(`mật khẩu phải ở trong khoảng 12 - 32 kí tự`);
       return;
     }
 
@@ -55,6 +56,7 @@ export default function Register() {
       .catch((error) => {
         console.log(error);
         toast.error(`Đăng kí thất bại`);
+        error?.response?.data?.forEach(err => toast.error(err.description))
       });
   });
   return (
@@ -81,6 +83,7 @@ export default function Register() {
               onChange={(event) =>
                 setAccount({ ...account, password: event.target.value })
               }
+              type="password"
               className="p-2 w-full text-neutral-500 border-2 rounded-md"
               placeholder="**************"
             />
@@ -135,10 +138,9 @@ export default function Register() {
           </div>
         </div>
         <div
-          onClick={() => navigate("/")}
           className="flex justify-end font-medium"
         >
-          <button className="px-5 bg-black text-white py-2 mr-5 rounded-md">
+          <button onClick={() => navigate("/")} className="px-5 bg-black text-white py-2 mr-5 rounded-md">
             Hủy
           </button>
           <MilMomBtn

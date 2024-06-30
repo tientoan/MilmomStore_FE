@@ -3,12 +3,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accountAtom } from '../atom/accountAtom';
 
-export default function ProtectedLayout() {
+
+export default function ProtectedAuthLayout() {
     const [account, setAccount] = useRecoilState(accountAtom);
 
   return (
     <>
-    {account?<Outlet />:<Navigate to={'/login'}/>}
+    {account?<Navigate to={'/'}/>:<Outlet />}
     </>
   )
 }

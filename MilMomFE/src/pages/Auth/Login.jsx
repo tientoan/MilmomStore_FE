@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import milmomtext from "../../assets/milmomtext.png";
 import MilMomBtn from "../../components/MilMomBtn";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Login() {
   });
 
   const SignIn = useCallback(() => {
-    const Entries = account.entries();
+    const Entries = Object.entries(account);
 
     for (const [key, value] of Entries) {
       if (!value || value?.trim() == "") {
@@ -29,17 +29,19 @@ export default function Login() {
       return;
     }
 
-    if (account?.password?.length < 8 || account?.password?.length > 32) {
-      toast.warning(`mật khẩu phải ở trong khoảng 8 - 32 kí tự`);
+    if (account?.password?.length < 12 || account?.password?.length > 32) {
+      toast.warning(`mật khẩu phải ở trong khoảng 12 - 32 kí tự`);
       return;
     }
 
     postService(login, account).then(result => {
       toast.success('Đăng nhập thành công')
-      setAccountAtom(result.data)
+      localStorage.setItem('account', JSON.stringify(result))
+      setAccountAtom(result)
     }).catch((error) => {
       console.log(error)
       toast.error("Đăng nhập thất bại")
+      toast.error(error?.response?.data)
     })
   })
   return (
