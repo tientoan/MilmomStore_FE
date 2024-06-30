@@ -19,7 +19,7 @@ export const putService = async (url, data={}, params=undefined) => {
 }
 
 export const deleteService = async (url, data={}, params=undefined) => {
-    const result = await instance.delete(generateURL(url, params), data)
+    const result = await instance.delete(generateURL(url, params), {data})
     return result.data;
 }
 

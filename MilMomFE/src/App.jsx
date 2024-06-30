@@ -1,38 +1,94 @@
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-
-import MainLayout from './layouts/mainLayout'
-import ProductDetail from './pages/ProductDetail'
-import Cart from './pages/Cart'
-import Home from './pages/Home'
-
+import MainLayout from "./layouts/mainLayout";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Home from "./pages/Home";
+import AuthLayout from "./layouts/authLayout";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import UnvalidEmail from "./pages/Auth/UnvalidEmail";
+import ValidEmail from "./pages/Auth/ValidEmail";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { RecoilRoot, useRecoilState } from "recoil";
+import ProtectedLayout from "./layouts/protectedLayout";
+import ProtectedAuthLayout from "./layouts/protectedAuthLayout";
+import { provinesAtom } from "./atom/provinesAtom";
+import { useEffect } from "react";
+import axios from "axios";
+import PaymentSuccessful from "./pages/PaymentSuccessful";
+import AdminLayout from "./layouts/adminLayout";
+import Dashboard from "./pages/Admin/Dashboard";
+import UserManager from "./pages/Admin/UserManager";
+import StaffLayout from "./layouts/staffLayout";
+import ReportManager from "./pages/Staff/ReportManager";
+import OrderManager from "./pages/Staff/OrderManager";
 function App() {
+  const [provines, setProvines] = useRecoilState(provinesAtom);
+
+  useEffect(() => {
+    axios
+      .get("https://esgoo.net/api-tinhthanh/4/0.htm")
+      .then((result) => setProvines(result.data.data));
+  }, []);
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route
-        
-        element={<MainLayout />}
-      >
-        <Route path="/">
-          <Route index element={<Home />}/>
-          <Route
-            path="productDetail"
-            element={<ProductDetail />}
-          />
-          <Route
-            path="cart"
-            element={<Cart />}
-          />
+      <Route>
+        <Route element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+        </Route>
+
+        <Route element={<AuthLayout width="w-1/3" />}>
+          <Route path="register" element={<Register />} />
+        </Route>
+
+        <Route element={<ProtectedAuthLayout />}>
+          <Route path="forgotPassword" element={<ForgotPassword />} />
+
+          <Route path="unvalidEmail" element={<UnvalidEmail />} />
+
+          <Route path="validEmail" element={<ValidEmail />} />
+        </Route>
+
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="productDetail/:id" element={<ProductDetail />} />
+
+          <Route element={<ProtectedLayout />}>
+            <Route path="cart" element={<Cart />} />
+          </Route>
+        </Route>
+
+        <Route element={<ProtectedLayout />}>
+          <Route path="paymentsuccess/:id" element={<PaymentSuccessful />} />
+        </Route>
+
+        <Route element={<AdminLayout />}>
+          <Route path="dashboard" element={<Dashboard />}/>
+          <Route path="userManager" element={<UserManager />}/>
+        </Route>
+
+        <Route element={<StaffLayout />}>
+          <Route path="orderManager" element={<OrderManager />}/>
+          <Route path="reportHandle" element={<ReportManager />}/>
         </Route>
       </Route>
     )
-  )
-  
+  );
+
   return (
     <>
-       <RouterProvider router={router} />
+      <RouterProvider router={router} />
+      <ToastContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

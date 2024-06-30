@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { accountAtom } from "../atom/accountAtom";
+import { useRecoilState } from "recoil";
 export default function AuthLayout({ width = "w-1/2" }) {
   const [account, setAccount] = useRecoilState(accountAtom);
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!account) {
+    if (account) {
       navigate("/");
     }
   });
