@@ -3,7 +3,6 @@ import { homeBanner, momMilTopics } from "../data/data";
 import apphich from "../assets/apphich.png";
 import OtherProducts from "../components/OtherProducts";
 import BannerMilMom from "../assets/bannerMilMom.png";
-import SliderReact from "../components/Slider";
 
 export default function Home() {
   return (
@@ -17,11 +16,11 @@ export default function Home() {
         <div className="text-4xl font-medium mb-20">Các loại sản phẩm cho bé</div>
 
         <div className="flex">
-          {homeBanner.map((banner,index) => (
-            <div key={index} className="w-1/3">
-              <div className="text-center text-3xl font-medium mb-10">{index+1}. {banner.content}</div>
+          {homeBanner.map((banner, index) => (
+            <div className="w-1/3">
+              <div className="text-center text-3xl font-medium mb-10">{index + 1}. {banner.content}</div>
               <div className="w-1/2 bg-white rounded-xl m-auto"><img className="rounded-xl" src={banner.imageURL} /></div>
-              
+
             </div>
           ))}
         </div>
@@ -37,7 +36,7 @@ export default function Home() {
       <OtherProducts />
 
       <div className="my-10">
-        <div className="text-4xl mb-10 font-medium ">
+        <div className="text-4xl font-medium ">
           Các chủ đề dành cho mẹ và bé
         </div>
         <div className="flex">

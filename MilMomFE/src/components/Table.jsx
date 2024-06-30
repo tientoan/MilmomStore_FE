@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { formatCurrency } from "../helpers/helper";
 
 export const cartHeader = [
@@ -31,8 +31,7 @@ export const cartHeader = [
     width: "w-2/12",
   },
 ];
-
-function Table({ headerTable, datas }) {
+export default function Table({ headerTable, datas }) {
   return (
     <div>
       <table>
@@ -66,5 +65,3 @@ function Table({ headerTable, datas }) {
     </div>
   );
 }
-
-export default memo(Table)
