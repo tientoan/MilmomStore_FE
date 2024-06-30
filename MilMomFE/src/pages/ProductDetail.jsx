@@ -1,67 +1,60 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_IMG, detailProduct, emptyAvatar } from "../data/data";
+import React from "react";
+import { detailProduct, emptyAvatar } from "../data/data";
 import { formatCurrency } from "../helpers/helper";
 import MilMomBtn from "../components/MilMomBtn";
-
+import Slider from "react-slick";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useParams } from "react-router-dom";
-import { getService } from "../api/services";
-import { getProductDetail } from "../api/apis";
-import SliderReact from "../components/Slider";
+var settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+};
 
 export default function ProductDetail() {
-  const [product, setProduct] = useState();
-  const [selectedImg, setSelectedImg] = useState(DEFAULT_IMG);
-  const params = useParams();
-
-  const changeSelectedImage = useCallback((img) => {
-    setSelectedImg(img);
-  });
-
-  useEffect(() => {
-    getService(getProductDetail, [params?.id]).then((result) => {
-      setProduct(result.data);
-      setSelectedImg(result.data.imageProducts[0].image);
-    });
-  }, [params]);
   return (
     <div className="py-10 px-40">
-      <div className="flex items-center mb-20">
+      <div className="flex items-center">
         <div className="w-1/2">
-          <img
-            className="mb-5 w-full"
-            src={
-              selectedImg
-            }
-          />
+          <img className="mb-5 w-full" src={detailProduct?.image[0]} />
 
-          <SliderReact onClickImg={changeSelectedImage} images={product?.imageProducts} />
+          {/* <Slider {...settings}>
+            {detailProduct?.image.map((img) => (
+              <div>
+                <img src={img} />
+              </div>
+            ))}
+          </Slider> */}
         </div>
         <div className="w-1/2 px-10">
-          <div className="text-4xl font-bold mb-3">{product?.name}</div>
+          <div className="text-4xl font-bold mb-3">{detailProduct?.name}</div>
           <div className="text-sm text-neutral-500 mb-20">
-            {product?.original}
+            {detailProduct?.from}
           </div>
           <div className="flex mb-5">
             <div className="text-3xl font-bold text-blue-950 mr-10">
-              {formatCurrency(product?.purchasePrice ?? 0)}
+              {formatCurrency(detailProduct?.price)}
             </div>
             <div className="px-2 py-1 bg-yellow-100 rounded-3xl mr-3 flex items-center text-yellow-400 text-sm">
               <Icon icon="material-symbols:star-outline" />
-              <span className="ml-2">{product?.rating ?? 0}</span>
+              <span className="ml-2">{detailProduct?.rate}</span>
             </div>
             <div className="px-2 py-1 rounded-3xl bg-slate-100 flex items-center text-red-300 text-sm">
               <Icon
                 icon="icon-park-outline:comment"
                 className="text-blue-950"
               />
-              <span className="ml-2">{0} đánh giá</span>
+              <span className="ml-2">{detailProduct?.comment} đánh giá</span>
             </div>
           </div>
 
           <div className="flex mb-2">
             <div className="font-bold text-neutral-500 mr-28 line-through">
-              {formatCurrency(product?.unitPrice ?? 0)}
+              {formatCurrency(
+                detailProduct?.price -
+                  detailProduct?.price * detailProduct?.sale
+              )}
             </div>
             <div className="px-2 py-1 flex items-center text-sm">
               <div className="text-green-700">93%</div>
@@ -113,32 +106,24 @@ export default function ProductDetail() {
             Tên sản phẩm
           </div>
           <div className="p-5 font-medium border border-neutral-500 col-span-3">
-            {product?.name}
+            {detailProduct?.name}
           </div>
           <div className="p-5 font-medium border border-neutral-500 bg-neutral-100">
             Nhà sản xuất
           </div>
           <div className="p-5 font-medium border border-neutral-500 col-span-3">
-            {product?.supplier}
+            {detailProduct?.from}
           </div>
           <div className="p-5 font-medium border border-neutral-500">
             Hướng dẫn sử dụng
           </div>
-          <div className="p-5 font-medium border border-neutral-500 col-span-3">
-            {product?.instruction}
-          </div>
+          <div className="p-5 font-medium border border-neutral-500 col-span-3"></div>
           <div className="p-5 font-medium border border-neutral-500 bg-neutral-100">
             Trọng lượng sản phẩm
           </div>
-          <div className="p-5 font-medium border border-neutral-500 col-span-3">
-            {product?.weight} g
-          </div>
-          <div className="p-5 font-medium border border-neutral-500">
-            Thành phần
-          </div>
-          <div className="p-5 font-medium border border-neutral-500 col-span-3">
-            {product?.ingredient}
-          </div>
+          <div className="p-5 font-medium border border-neutral-500 col-span-3"></div>
+          <div className="p-5 font-medium border border-neutral-500">Thành phần</div>
+          <div className="p-5 font-medium border border-neutral-500 col-span-3"></div>
         </div>
       </div>
 

@@ -8,14 +8,13 @@ import topic4 from '../assets/topic4.png'
 import topic5 from '../assets/topic5.png'
 import topic6 from '../assets/topic6.png'
 
-export const DEFAULT_IMG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx0pWMi3w72H4-7lvJf5laNUWsZr9bRw1b6Q&s"
 export const navbarData = [
     {
         content:"Mua hàng và CSKH 1800 8080",
         link:"/"
     },
     {
-        content:"Tìm Siêu Thị (340)",
+        content:"Zalo (1234567890)",
         link:"/"
     },
     {
