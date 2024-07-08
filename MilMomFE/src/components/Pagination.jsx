@@ -18,7 +18,7 @@ const Pagination = ({
         )}
 
         {currentPage > 2&&<div>{currentPage-1}</div>}
-        <div className="py-3 px-4 border rounded-lg">{currentPage}</div>
+        <div className="py-3 px-4 border rounded-lg bg-white">{currentPage}</div>
         {currentPage < totalPage - 1&&<div>{totalPage-1}</div>}
         {currentPage < totalPage && (
           <div className="flex  items-center ml-5">

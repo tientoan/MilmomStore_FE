@@ -105,14 +105,24 @@ export const blankAvatar = 'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186
 
 export const sideBarAdminData = [
     {
-        content:"dashboard",
-        icon: <Icon icon="clarity:house-line" />,
+        content:"Dashboard",
+        icon: <Icon icon="solar:chart-broken" />,
         link:"/dashboard"
     },
     {
-        content:"User Account",
+        content:"Doanh thu",
+        icon: <Icon icon="codicon:book" />,
+        link:"/revenueManager"
+    },
+    {
+        content:"Tài khoản",
         icon: <Icon icon="mdi:user" />,
         link:"/userManager"
+    },
+    {
+        content:"Sản phẩm",
+        icon: <Icon icon="fluent-mdl2:product" />,
+        link:"/statisticalProduct"
     }
 ]
 
@@ -256,5 +266,38 @@ export const staticDashboard = [
         content: "Growth",
         value:"5.6%",
         iconColor:"bg-green-300"
+    }
+]
+
+export const orderStatus = [
+    {
+        id:1,
+        content:"Chờ xác nhận",
+        color:"bg-green-500"
+    },
+    {
+        id:2,
+        content:"Đang giao hàng",
+        color:"bg-lime-500"
+    },
+    {
+        id:3,
+        content:"Đã hoàn tất",
+        color:"bg-orange-500"
+    },
+    {
+        id:4,
+        content:"Chờ hoàn tiền",
+        color:"bg-red-500"
+    },
+    {
+        id:5,
+        content:"Yêu cầu trả hàng",
+        color:"bg-sky-200"
+    },
+    {
+        id:6,
+        content:"Đã hủy",
+        color:"bg-pink-100"
     }
 ]
