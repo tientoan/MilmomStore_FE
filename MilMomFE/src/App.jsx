@@ -31,6 +31,7 @@ import StaffLayout from "./layouts/staffLayout";
 import ReportManager from "./pages/Staff/ReportManager";
 import OrderManager from "./pages/Staff/OrderManager";
 import RevenueManager from "./pages/Admin/RevenueManager";
+import StatisticalProduct from "./pages/Admin/StatisticalProduct";
 function App() {
   const [provines, setProvines] = useRecoilState(provinesAtom);
 
@@ -75,7 +76,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />}/>
           <Route path="userManager" element={<UserManager />}/>
           <Route path="revenueManager" element={<RevenueManager />}/>
-          {/* <Route path="statisticalProduct" element={<StatisticalProduct />}/> */}
+          <Route path="statisticalProduct" element={<StatisticalProduct />}/>
         </Route>
 
         <Route element={<StaffLayout />}>

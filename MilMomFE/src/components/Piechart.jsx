@@ -83,7 +83,7 @@ const renderActiveShape = (props) => {
   );
 };
 
-export const PieChartComponent = () => {
+export const PieChartComponent = ({data = []}) => {
   const [state, setState] = useState({
     activeIndex: 0,
   });
@@ -108,7 +108,7 @@ export const PieChartComponent = () => {
         dataKey="value"
         onMouseEnter={onPieEnter}
       >
-        {data.map((entry, index) => (
+        {data?.length>0&&data?.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>

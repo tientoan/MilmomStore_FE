@@ -9,6 +9,7 @@ import topic5 from '../assets/topic5.png'
 import topic6 from '../assets/topic6.png'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { getCurrentDate } from '../helper/helper'
+import { formatCurrency } from '../helpers/helper'
 
 export const DEFAULT_IMG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx0pWMi3w72H4-7lvJf5laNUWsZr9bRw1b6Q&s"
 export const navbarData = [
@@ -245,31 +246,32 @@ export const reportList = [
 export const staticDashboard = [
     {
         icon: <Icon icon="clarity:wallet-line" />,
-        content: "Total Cash Balance",
-        value:"5,202,000đ",
-        iconColor:"bg-blue-300"
+        content: "Tổng Doanh Thu Trong Tuần",
+        value:"totalAmount",
+        iconColor:"bg-blue-300",
+        format: (value) => formatCurrency(value)
     },
     {
         icon: <Icon icon="bx:coin-stack" />,
-        content: "Total Deposite",
-        value:"9,455,000đ",
-        iconColor:"bg-yellow-300"
+        content: "Lợi Nhuận Thu Được Trong Tuần",
+        value:"totalProfit",
+        iconColor:"bg-yellow-300",
+        format: (value) => `${value.toFixed(2)}%`
     },
     {
         icon: <Icon icon="uil:money-withdraw" />,
-        content: "Total Withdraw",
-        value:"12,100,000đ",
+        content: "Số Lượng Sản Phẩm Bán Ra Trong Tuần",
+        value:"totalProducts",
         iconColor:"bg-red-300"
-    },
-    {
-        icon: <Icon icon="bx:bar-chart" />,
-        content: "Growth",
-        value:"5.6%",
-        iconColor:"bg-green-300"
     }
 ]
 
 export const orderStatus = [
+    {
+        id:0,
+        content:"Chờ thanh toán",
+        color:"bg-green-200"
+    },
     {
         id:1,
         content:"Chờ xác nhận",
@@ -281,22 +283,22 @@ export const orderStatus = [
         color:"bg-lime-500"
     },
     {
-        id:3,
+        id:4,
         content:"Đã hoàn tất",
         color:"bg-orange-500"
     },
     {
-        id:4,
+        id:6,
         content:"Chờ hoàn tiền",
         color:"bg-red-500"
     },
     {
-        id:5,
+        id:7,
         content:"Yêu cầu trả hàng",
         color:"bg-sky-200"
     },
     {
-        id:6,
+        id:5,
         content:"Đã hủy",
         color:"bg-pink-100"
     }
