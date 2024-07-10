@@ -150,6 +150,25 @@ export const sideBarStaffData = [
     }
 ]
 
+export const sideBarManagerData = [
+    {
+        content:"Quản lý sản phẩm",
+        link:"/productManager"
+    },
+    {
+        content:"Quản lý slider",
+        link:"/sliderManager"
+    },
+    {
+        content:"Quản lý danh mục",
+        link:"/categoryManager"
+    },
+    {
+        content:"Quản lý bài viết",
+        link:"/postManager"
+    },
+]
+
 export const accountType = [
     {
         content:"Staff"
