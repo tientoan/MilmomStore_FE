@@ -72,7 +72,7 @@ export default function Register() {
                 setAccount({ ...account, username: event.target.value })
               }
               className="p-2 w-full text-neutral-500 border-2 rounded-md"
-              placeholder="Nguyen Van A"
+              placeholder="user123"
             />
           </div>
 

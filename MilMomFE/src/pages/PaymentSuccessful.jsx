@@ -22,7 +22,7 @@ export default function PaymentSuccessful() {
   });
   return (
     <div className="py-10 px-5 font-medium">
-      <div className="font-bold text-xl text-center my-5">
+      <div className="font-bold text-2xl text-center my-5 text-green-500">
         Tạo Đơn Hàng Thành Công
       </div>
       <div className="flex">
@@ -67,11 +67,11 @@ export default function PaymentSuccessful() {
           <div className="mt-5 border"><Table bg="bg-neutral-100" headerTable={orderHeader} isDelete={false} datas={order?.orderDetails}/></div>
         </div>
         <div className="w-1/3">
-          <div className="mb-3 border">
-            <div className="bg-slate-200 p-3">PHƯƠNG THỨC THANH TOÁN</div>
-            <div className="text-center py-5 text-red-600">Ship Cod</div>
+          <div className="mb-3 border border-black border-solid">
+            <div className="text-center bg-red-300 p-3">PHƯƠNG THỨC THANH TOÁN</div>
+            <div className="text-center py-5 text-red-600">VN PAY</div>
           </div>
-          <div className="border p-3 mb-3 pb-40">
+          {/* <div className="border p-3 mb-3 pb-40">
             <div className="flex justify-between">
               <div className="text-neutral-400">Thành tiền:</div>
               <div>2.550.000 đ</div>
@@ -87,13 +87,13 @@ export default function PaymentSuccessful() {
               <div>(1 sản phẩm)</div>
               <div>(Đã bao gồm VAT)</div>
             </div>
-          </div>
+          </div> */}
 
-          <MilMomBtn
-            content="Ghi chú"
+          {/* <MilMomBtn
+            content="Hủy đơn"
             bg="bg-white"
-            className="border py-3 mb-3"
-          />
+            className="border border-black border-solid py-3 mb-3"
+          /> */}
           <MilMomBtn
             onClick={() => navigate("/")}
             content="Quay lại trang chủ"
