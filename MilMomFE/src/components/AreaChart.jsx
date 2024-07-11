@@ -48,7 +48,7 @@ const data = [
 
 import React from 'react'
 
-export default function AreaChartComponent() {
+export default function AreaChartComponent({data=[]}) {
     return (
         <ResponsiveContainer width="100%" height="80%">
           <AreaChart
@@ -66,8 +66,8 @@ export default function AreaChartComponent() {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="uv" stroke="#bababa" fill='#ededed' />
-            <Area type="monotone" dataKey="pv" stroke="#8884d8" fill="#ededed" />
+            <Area type="monotone" dataKey="static" stroke="#bababa" fill='#ededed' />
+            {/* <Area type="monotone" dataKey="pv" stroke="#8884d8" fill="#ededed" /> */}
           </AreaChart>
         </ResponsiveContainer>
       );

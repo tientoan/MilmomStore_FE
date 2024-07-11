@@ -58,10 +58,10 @@ const data = [
 
 export const ColumnChart = () => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    // <ResponsiveContainer width="100%" height="100%">
       <BarChart
-        width={500}
-        height={300}
+        width={1200}
+        height={700}
         data={data}
         margin={{
           top: 5,
@@ -86,6 +86,6 @@ export const ColumnChart = () => {
           activeBar={<Rectangle fill="gold" stroke="purple" />}
         />
       </BarChart>
-    </ResponsiveContainer>
+    // </ResponsiveContainer>
   );
 };
