@@ -1,5 +1,6 @@
 import React from "react";
 import { ColumnChart } from "./ColumnChart";
+import MilMomBtn from "./MilMomBtn";
 
 export default function OrderChart() {
   return (
@@ -16,17 +17,17 @@ export default function OrderChart() {
       </div>
 
       <div className="rounded-xl overflow-hidden">
-        <div className="flex justify-between items-center bg-red-200">
+        <div className="flex justify-between items-center bg-red-200 py-1 px-5">
           <div className="font-medium text-xl">Bộ lọc</div>
-          <div className="flex items-center">
+          <div className="flex items-end">
             <div className="mr-3">
               <div className="text-sm mb-1">Thời gian bắt đầu</div>
-              <input type="date" className="p-3" />
+              <input type="date" className="p-3 rounded-lg" />
             </div>
 
             <div className="mr-3">
               <div className="text-sm mb-1">Thời gian bắt đầu</div>
-              <input type="date" className="p-3" />
+              <input type="date" className="p-3 rounded-lg" />
             </div>
 
             <select className="p-3">
@@ -37,7 +38,7 @@ export default function OrderChart() {
           </div>
         </div>
 
-        <ColumnChart />
+       <div className="bg-white py-5"> <ColumnChart /></div>
       </div>
     </div>
   );

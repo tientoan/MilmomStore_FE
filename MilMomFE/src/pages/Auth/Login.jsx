@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import milmomtext from "../../assets/milmomtext.png";
 import MilMomBtn from "../../components/MilMomBtn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postService } from "../../api/services";
 import { login } from "../../api/apis";
 import { useRecoilState } from "recoil";
@@ -13,6 +13,8 @@ export default function Login() {
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate()
 
   const SignIn = useCallback(() => {
     const Entries = Object.entries(account);
@@ -80,7 +82,7 @@ export default function Login() {
         <button onClick={SignIn} className="w-4/5 bg-black text-white py-2 mb-3">
           Đăng nhập
         </button>
-        <MilMomBtn content="Đăng ký" className="w-4/5 mb-5" />
+        <MilMomBtn onClick={() => navigate('/register')} content="Đăng ký" className="w-4/5 mb-5" />
         <div className="text-center w-4/5 mb-3">
           <Link
             to={"/forgotPassword"}

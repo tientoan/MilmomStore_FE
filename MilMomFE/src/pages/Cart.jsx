@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Table, { cartHeader } from "../components/Table";
 import { detailProduct } from "../data/data";
 import MilMomBtn from "../components/MilMomBtn";
@@ -11,16 +11,24 @@ import { checkout, get_del_Cart_byAccountId } from "../api/apis";
 import { provinesAtom } from "../atom/provinesAtom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../helpers/helper";
 
 export default function Cart() {
   const [account, setAccount] = useRecoilState(accountAtom);
   const [provines, setProvines] = useRecoilState(provinesAtom);
   const [reciveAccount, setRAcc] = useState();
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState([]);
   const [seletedProvine, setSelectedProvine] = useState();
   const [selectedDistric, setSelectedDistric] = useState();
   const [selectedWard, setSelectedWard] = useState();
   const navigate = useNavigate();
+
+  const total = useMemo(() => {
+    const totalPrice = cart.reduce((accumulator, item) => {
+      return accumulator + item.product.purchasePrice;
+    }, 0);
+    return totalPrice;
+  }, [cart]);
 
   const buy = useCallback(() => {
     if (!cart || cart?.length < 1) {
@@ -28,7 +36,7 @@ export default function Cart() {
       return;
     }
 
-    const entries = Object.entries(reciveAccount)
+    const entries = Object.entries(reciveAccount);
 
     for (const [key, value] of entries) {
       if (!value || value?.trim() == "") {
@@ -37,8 +45,8 @@ export default function Cart() {
       }
     }
 
-    if(!seletedProvine||!selectedDistric||!selectedWard){
-      toast.warning("Nhập đầy đủ địa chỉ")
+    if (!seletedProvine || !selectedDistric || !selectedWard) {
+      toast.warning("Nhập đầy đủ địa chỉ");
       return;
     }
 
@@ -48,13 +56,15 @@ export default function Cart() {
       ward: selectedWard.name,
       district: selectedDistric.name,
       province: seletedProvine.name,
-    }).then(result => {
-      console.log(result)
-      getCart()
-      window.open(result, '_blank');
-    }).catch(error => {
-      console.log(error)
-    });
+    })
+      .then((result) => {
+        console.log(result);
+        getCart();
+        window.open(result, "_blank");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 
   const deleteFromCart = useCallback((data) => {
@@ -69,14 +79,14 @@ export default function Cart() {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   const getCart = useCallback(() => {
     getService(get_del_Cart_byAccountId, [account?.userID]).then((result) => {
       console.log("cart", result);
       setCart(result.data.cartItem);
     });
-  });
+  }, []);
 
   const onChangeProvine = (id) => {
     const pro = provines.find((p) => p.id == id);
@@ -98,14 +108,13 @@ export default function Cart() {
       phone: account.phone,
       receiverName: account.name,
     });
-    
   }, []);
 
   useEffect(() => {
     setSelectedProvine(provines[0]);
     setSelectedDistric(provines[0]?.data2[0]);
     setSelectedWard(provines[0]?.data2[0]?.data3[0]);
-  },[provines])
+  }, [provines]);
   return (
     <div className="px-5">
       <div className="text-red-300 font-bold text-2xl mb-5">
@@ -114,7 +123,7 @@ export default function Cart() {
       <div className="flex mb-10">
         <div className="w-4/5 border flex flex-col justify-between border-black rounded-xl overflow-hidden mr-5 text-sm">
           <Table
-          indexHeader={"STT"}
+            indexHeader={"STT"}
             headerTable={cartHeader}
             datas={cart}
             onDelete={deleteFromCart}
@@ -124,12 +133,12 @@ export default function Cart() {
             <div className="w-1/4 font-medium">
               <div className="flex justify-between">
                 <span className="text-neutral-400">Tạm tính</span>
-                <span>0đ</span>
+                <span>{formatCurrency(total)}</span>
               </div>
               <hr className="my-3" />
               <div className="flex justify-between">
                 <span>Tổng tiền</span>
-                <span>0đ</span>
+                <span>{formatCurrency(total)}</span>
               </div>
             </div>
 
