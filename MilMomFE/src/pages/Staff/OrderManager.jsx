@@ -31,14 +31,14 @@ function OrderManager() {
       setOrder(result.data);
     });
   }, [status, date]);
-  const Completed   = useCallback(( orderId) => {
-  putService(`${updateOrderStatus}?orderId=${orderId}&status=4`).then(() => {
+  const Completed   = useCallback(( order) => {
+  putService(`${updateOrderStatus}?orderId=${order.orderID}&status=4`).then(() => {
     getOrders()
   })
   },[status,date])
 
-  const Cancelled  = useCallback(( orderId) => {
-    putService(`${updateOrderStatus}?orderId=${orderId}&status=5`).then(() => {
+  const Cancelled  = useCallback(( order) => {
+    putService(`${updateOrderStatus}?orderId=${order.orderID}&status=5`).then(() => {
       getOrders()
     })
     },[])
