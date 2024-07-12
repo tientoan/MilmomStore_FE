@@ -167,6 +167,47 @@ export const statisticalProductTable = [
   },
 ];
 
+export const productManagerHeader = [
+  {
+    content: "ID sản phẩm",
+    id: "productId",
+    width: "w-1/12",
+  },
+  {
+    content: "Tên sản phẩm",
+    id: "name",
+    width: "w-2/12",
+  },
+  {
+    content: "Loại sản phẩm",
+    id: "productName",
+    width: "w-2/12",
+    format: (product) => product.category.name
+  },
+  {
+    content: "Số lượng trong kho",
+    id: "inventoryQuantity",
+    width: "w-1/12",
+  },
+  {
+    content: "Giá sản phẩm",
+    id: "purchasePrice",
+    width: "w-2/12",
+  },
+  {
+    content: "Hình ảnh",
+    id: "image",
+    width: "w-2/12",
+    format: (product) => <div className="overflow-x-scroll flex">{product?.imageProducts.map(img => <img src={img.image} className="w-full inline"/>)}</div>
+  },
+  {
+    content: "Trạng thái",
+    id: "status",
+    width: "w-1/12",
+    format: (product) => <span className={`${product?.status?'text-green-500':'text-red-500'}`}>{product?.status?'Active':'Deactive'}</span>
+  },
+]
+
 function ManagerTable({
   indexHeader = undefined,
   bg = "bg-red-300",
@@ -231,8 +272,8 @@ function ManagerTable({
                         <Icon icon="charm:menu-kebab" />
                       </button>
                       <div className="hidden absolute p-3 border border-red-300 rounded-lg bg-white right-5">
-                        <MilMomBtn onClick={() => onApprove(data[headerTable[0].id])} content={approveContent} className="mb-3 rounded-md" bg="bg-orange-300" />
-                        <MilMomBtn onClick={() => onDelete(data[headerTable[0].id])} content={deleteContent} className="mb-3 rounded-md" text="text-white"/>
+                        <MilMomBtn onClick={() => onApprove(data)} content={approveContent} className="mb-3 rounded-md" bg="bg-orange-300" />
+                        <MilMomBtn onClick={() => onDelete(data)} content={deleteContent} className="mb-3 rounded-md" text="text-white"/>
                       </div>
                     </td>
                   )}
