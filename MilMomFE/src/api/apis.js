@@ -5,6 +5,7 @@ export const register = `${Account}/register`
 export const getAllAccount = `${Account}/Get-all-accounts`
 export const updateAccount = `${Account}/Update-Account`
 
+
 const AccountApp = `/AccountApp`
 export const getTotalAcc = `${AccountApp}/base/GetTotalAccount`
 export const getUserInfo = `${AccountApp}/base/string`
@@ -18,6 +19,7 @@ export const FilterProduct = `${Product}/base/filter`
 export const getForManager = `${Product}/base/getProductsForManager`
 export const addForManager =  `${Product}/AddForManagement`
 export const updateForManager =  `${Product}/UpdateForManagement`
+export const getTopProduct = `${Product}/base/GetTopProductInMonth`
 
 export const post_del_Cart = `/Cart`
 export const get_del_Cart_byAccountId = `${post_del_Cart}`
