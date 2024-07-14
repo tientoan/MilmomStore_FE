@@ -52,7 +52,7 @@ export default function ProductDetail() {
     <div className="py-10 px-40">
       <div className="flex items-center mb-20">
         <div className="w-1/2">
-          <img className="mb-5 w-full" src={selectedImg} />
+          <img className="mb-5" src={selectedImg} />
 
           <SliderReact
             onClickImg={changeSelectedImage}
@@ -61,8 +61,8 @@ export default function ProductDetail() {
         </div>
         <div className="w-1/2 px-10">
           <div className="text-4xl font-bold mb-3">{product?.name}</div>
-          <div className="text-sm text-neutral-500 mb-20">
-            {product?.original}
+          <div className="text-md text-neutral-500 mb-20">
+            Xuất xứ: {product?.original}
           </div>
           <div className="flex mb-5">
             <div className="text-3xl font-bold text-blue-950 mr-10">
@@ -82,9 +82,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="flex mb-2">
-            <div className="font-bold text-neutral-500 mr-28 line-through">
-              {formatCurrency(product?.unitPrice ?? 0)}
-            </div>
+            
             <div className="px-2 py-1 flex items-center text-sm">
               <div className="text-green-700">93%</div>
               <span className="ml-2 text-neutral-500">
@@ -131,11 +129,11 @@ export default function ProductDetail() {
       </div>
 
       <div className="mb-20">
-        <div className="text-4xl font-medium mb-10">
+        <div className="text-3xl font-medium mb-10 ">
           Thông tin chi tiết sản phẩm
         </div>
         <div className="grid grid-cols-4 mb-5">
-          <div className="p-5 font-medium border border-neutral-500">
+          <div className="p-5 font-medium border border-neutral-500 bg-pink-200">
             Tên sản phẩm
           </div>
           <div className="p-5 font-medium border border-neutral-500 col-span-3">
@@ -147,7 +145,7 @@ export default function ProductDetail() {
           <div className="p-5 font-medium border border-neutral-500 col-span-3">
             {product?.supplier}
           </div>
-          <div className="p-5 font-medium border border-neutral-500">
+          <div className="p-5 font-medium border border-neutral-500 bg-pink-200">
             Hướng dẫn sử dụng
           </div>
           <div className="p-5 font-medium border border-neutral-500 col-span-3">
@@ -159,7 +157,7 @@ export default function ProductDetail() {
           <div className="p-5 font-medium border border-neutral-500 col-span-3">
             {product?.weight} g
           </div>
-          <div className="p-5 font-medium border border-neutral-500">
+          <div className="p-5 font-medium border border-neutral-500 bg-pink-200">
             Thành phần
           </div>
           <div className="p-5 font-medium border border-neutral-500 col-span-3">

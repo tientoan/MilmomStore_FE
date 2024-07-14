@@ -19,7 +19,7 @@ export const cartHeader = [
     id: "image",
     format: (cart, next=undefined) => (
       <img
-        className="m-auto"
+        className="m-auto" style={{width:"50%"}}
         src={
           cart.product?.imageProducts?.length > 0 &&
           cart.product?.imageProducts[0].image
@@ -80,14 +80,28 @@ export const orderHeader = [
   {
     content: "Tên sản phẩm",
     id: "name",
-    width: "w-6/12",
+    width: "w-4/12",
     header: () => <div className="pl-3 flex justify-start">Tên sản phẩm</div>,
-    format: (cart, next=undefined) => <div className="flex justify-start pl-3">{cart.product.name}</div>,
+    format: (cart, next=undefined) => <div className="flex justify-start pl-2 text-sm">{cart.product.name}</div>,
+  },
+  {
+    content: "Hình ảnh",
+    id: "image",
+    format: (cart, next=undefined) => (
+      <img
+        className="m-auto" style={{width:"40%"}}
+        src={
+          cart.product?.imageProducts?.length > 0 &&
+          cart.product?.imageProducts[0].image
+        }
+      />
+    ),
+    width: "w-3/12",
   },
   {
     content: "Số lượng",
     id: "quantity", 
-    width: "w-3/12",
+    width: "w-1/12",
   },
   {
     content: "Đơn giá",
@@ -101,12 +115,11 @@ export const orderHeader = [
     format: (cart, next=undefined) => (
       <>{formatCurrency(cart.product?.purchasePrice * cart.quantity)}</>
     ),
-    width: "w-2/12",
+    width: "w-4/12",
   },
 ];
 
-
-function Table({indexHeader=undefined, bg="bg-red-300", headerTable, datas=[], isDelete = true, onDelete = () => {}, next = () => {} }) {
+function Table({indexHeader=undefined, bg="bg-red-300", headerTable, datas, isDelete = true, onDelete = () => {}, next = () => {} }) {
   return (
     <div>
       <table>
@@ -144,8 +157,5 @@ function Table({indexHeader=undefined, bg="bg-red-300", headerTable, datas=[], i
     </div>
   );
 }
-
-
-
 
 export default memo(Table);

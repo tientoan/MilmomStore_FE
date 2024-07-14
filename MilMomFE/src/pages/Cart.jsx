@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Table, { cartHeader } from "../components/Table";
 import { detailProduct } from "../data/data";
 import MilMomBtn from "../components/MilMomBtn";
@@ -7,28 +7,21 @@ import OtherProducts from "../components/OtherProducts";
 import { useRecoilState } from "recoil";
 import { accountAtom } from "../atom/accountAtom";
 import { deleteService, getService, postService } from "../api/services";
-import { checkout, get_del_Cart_byAccountId } from "../api/apis";
+import { checkout, get_del_Cart_byAccountId, checkout_cod } from "../api/apis";
 import { provinesAtom } from "../atom/provinesAtom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { formatCurrency } from "../helpers/helper";
 
 export default function Cart() {
   const [account, setAccount] = useRecoilState(accountAtom);
   const [provines, setProvines] = useRecoilState(provinesAtom);
   const [reciveAccount, setRAcc] = useState();
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState();
   const [seletedProvine, setSelectedProvine] = useState();
   const [selectedDistric, setSelectedDistric] = useState();
   const [selectedWard, setSelectedWard] = useState();
+  const [paymentMethod, setPaymentMethod] = useState('');
   const navigate = useNavigate();
-
-  const total = useMemo(() => {
-    const totalPrice = cart.reduce((accumulator, item) => {
-      return accumulator + item.product.purchasePrice;
-    }, 0);
-    return totalPrice;
-  }, [cart]);
 
   const buy = useCallback(() => {
     if (!cart || cart?.length < 1) {
@@ -36,7 +29,7 @@ export default function Cart() {
       return;
     }
 
-    const entries = Object.entries(reciveAccount);
+    const entries = Object.entries(reciveAccount)
 
     for (const [key, value] of entries) {
       if (!value || value?.trim() == "") {
@@ -45,26 +38,32 @@ export default function Cart() {
       }
     }
 
-    if (!seletedProvine || !selectedDistric || !selectedWard) {
-      toast.warning("Nhập đầy đủ địa chỉ");
+    if(!seletedProvine||!selectedDistric||!selectedWard){
+      toast.warning("Nhập đầy đủ địa chỉ")
       return;
     }
-
-    postService(`${checkout}?accountId=${account.userID}`, {
+    if(!paymentMethod){
+      toast.warning("Chọn phương thức thanh toán")
+      return;
+    }
+    const checkoutUrl = paymentMethod === 'Ship Cod' ? checkout_cod : checkout;
+    postService(`${checkoutUrl}?accountId=${account.userID}`, {
       ...reciveAccount,
       provinceCode: seletedProvine.id,
       ward: selectedWard.name,
       district: selectedDistric.name,
       province: seletedProvine.name,
-    })
-      .then((result) => {
-        console.log(result);
-        getCart();
-        window.open(result, "_blank");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    }).then(result => {
+      console.log(result)
+      getCart()
+      if(checkoutUrl == checkout_cod){
+        navigate(`/paymentsuccess/${result.data.orderID}`);
+      } else {
+        window.open(result, '_blank');
+      }
+    }).catch(error => {
+      console.log(error)
+    });
   });
 
   const deleteFromCart = useCallback((data) => {
@@ -79,14 +78,19 @@ export default function Cart() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  });
 
   const getCart = useCallback(() => {
     getService(get_del_Cart_byAccountId, [account?.userID]).then((result) => {
       console.log("cart", result);
       setCart(result.data.cartItem);
+
+      // Calculate total
+    const total = result.data.cartItem.reduce((acc, item) => {
+      return acc + (item.quantity * item.price);
+    }, 0);
     });
-  }, []);
+  });
 
   const onChangeProvine = (id) => {
     const pro = provines.find((p) => p.id == id);
@@ -107,14 +111,15 @@ export default function Cart() {
       detailAddress: account.address,
       phone: account.phone,
       receiverName: account.name,
-    });
+    });   
   }, []);
 
   useEffect(() => {
     setSelectedProvine(provines[0]);
     setSelectedDistric(provines[0]?.data2[0]);
     setSelectedWard(provines[0]?.data2[0]?.data3[0]);
-  }, [provines]);
+  },[provines])
+  
   return (
     <div className="px-5">
       <div className="text-red-300 font-bold text-2xl mb-5">
@@ -123,7 +128,7 @@ export default function Cart() {
       <div className="flex mb-10">
         <div className="w-4/5 border flex flex-col justify-between border-black rounded-xl overflow-hidden mr-5 text-sm">
           <Table
-            indexHeader={"STT"}
+          indexHeader={"STT"}
             headerTable={cartHeader}
             datas={cart}
             onDelete={deleteFromCart}
@@ -133,12 +138,16 @@ export default function Cart() {
             <div className="w-1/4 font-medium">
               <div className="flex justify-between">
                 <span className="text-neutral-400">Tạm tính</span>
-                <span>{formatCurrency(total)}</span>
+                <span>0</span>
+              </div>
+              <div className="flex justify-between mt-5">
+                <span className="text-neutral-400">Tiền Ship</span>
+                <span>0</span>
               </div>
               <hr className="my-3" />
               <div className="flex justify-between">
                 <span>Tổng tiền</span>
-                <span>{formatCurrency(total)}</span>
+                <span>0đ</span>
               </div>
             </div>
 
@@ -254,11 +263,16 @@ export default function Cart() {
             <div className="text-center mb-3">Chọn phương thức thanh toán</div>
 
             <div className="bg-white border flex items-center py-2 px-5 border-black rounded-2xl w-full mb-3">
-              <input className="mr-7" name="payment" type="radio" />{" "}
+              <input className="mr-7" name="payment" 
+              type="radio" 
+              onChange={() => setPaymentMethod('Ship Cod')}
+              />{" "}
               <span>Ship Cod</span>
             </div>
             <div className="bg-white border flex items-center py-2 px-5 border-black rounded-2xl w-full">
-              <input className="mr-7" name="payment" type="radio" />{" "}
+              <input className="mr-7" name="payment" type="radio" 
+              onChange={() => setPaymentMethod('VNPay')}
+              />{" "}
               <span>VNPay</span>
             </div>
           </div>

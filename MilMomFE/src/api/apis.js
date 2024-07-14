@@ -23,6 +23,7 @@ export const post_del_Cart = `/Cart`
 export const get_del_Cart_byAccountId = `${post_del_Cart}`
 
 export const checkout = `/Checkout/createOrder`
+export const checkout_cod = `/Checkout/createOrder-cod`
 
  const Order = `/Order`
 export const getOrderById = `${Order}/get-order-by-id`

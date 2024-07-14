@@ -3,26 +3,25 @@ import { blankAvatar, navbarData } from "../data/data";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MilMomBtn from "./MilMomBtn";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import logo from "../assets/logo.png";
 import milmom from "../assets/milmom.png";
 import { useRecoilState } from "recoil";
 import { accountAtom } from "../atom/accountAtom";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const logo = "https://res.cloudinary.com/dr2hpvick/image/upload/v1720421442/719ecdbb-feb1-4116-99a4-9ce21cac1b80_k8w6lb.png";
   const [account, setAccount] = useRecoilState(accountAtom);
   const navigate = useNavigate();
   const location = useLocation();
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" style={{backgroundColor:"#ffd1dc"}}>
       <div
         onClick={() => navigate("/")}
         className="w-1/6 flex items-center px-5"
       >
         <img src={logo} className="w-1/4" />
-        <img src={milmom} />
       </div>
-      <div className="w-3/6 flex items-center justify-evenly px-20">
+      <div className="w-4/6 flex items-center justify-evenly px-20">
         {navbarData.map((data) => (
           <Link
             to={data.link}
@@ -32,7 +31,7 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
-      <div className="w-2/6 flex items-center justify-around">
+      <div className="w-1/6 flex items-center justify-around">
         <Icon
           onClick={() => {
             if (!account) {
@@ -49,9 +48,9 @@ const Navbar = () => {
         <Icon icon="tabler:bell-ringing-2-filled" className="text-3xl" />
         {account ? (
           <>
-          <Link to={"/profile"} className="block w-1/12">
+          <div className="w-1/12">
             <img src={blankAvatar} className="rounded-full" />
-          </Link>
+          </div>
            <MilMomBtn
            onClick={() => {
             localStorage.removeItem('account')
