@@ -8,15 +8,15 @@ export default function AuthLayout({ width = "w-1/2" }) {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (account?.roles.includes("Admin")) {
-      navigate("/dashboard");
-    }else if (account?.roles.includes("Staff")) {
-      navigate("/orderManager");
-    }  else if (account?.roles.includes("Manager")) {
-      navigate("/productManager");
-    }  else{
-      navigate("/");
-    }
+    // if (account?.roles.includes("Admin")) {
+    //   navigate("/dashboard");
+    // }else if (account?.roles.includes("Staff")) {
+    //   navigate("/orderManager");
+    // }  else if (account?.roles.includes("Manager")) {
+    //   navigate("/productManager");
+    // }  else if(account){
+    //   navigate("/");
+    // }
   });
   return (
     <div className="flex">
