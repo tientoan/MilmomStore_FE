@@ -4,6 +4,7 @@ export const login = `${Account}/login`
 export const register = `${Account}/register`
 export const getAllAccount = `${Account}/Get-all-accounts`
 export const updateAccount = `${Account}/Update-Account`
+export const changePassword = `${Account}/Change-Password`
 
 
 const AccountApp = `/AccountApp`
