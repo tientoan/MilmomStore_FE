@@ -298,7 +298,7 @@ export const staticDashboard = [
         content: "Lợi Nhuận Thu Được Trong Tuần",
         value:"totalProfit",
         iconColor:"bg-yellow-300",
-        format: (value) => `${value.toFixed(2)}%`
+        format: (value) => `${value}%`
     },
     {
         icon: <Icon icon="uil:money-withdraw" />,

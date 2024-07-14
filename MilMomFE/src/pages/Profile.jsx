@@ -25,7 +25,7 @@ export default function Profile() {
       <div className="mt-20 grid font-medium  grid-cols-2 gap-5">
         <div className="bg-white rounded-md border-2 border-neutral-500 p-3">
           <div className="mb-5 text-xl">Họ và tên</div>
-          <div>{userInfo?.userName}</div>
+          <div>{userInfo?.name}</div>
         </div>
 
         <div className="bg-white rounded-md border-2 border-neutral-500 p-3">

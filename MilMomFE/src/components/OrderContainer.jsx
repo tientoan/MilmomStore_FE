@@ -1,8 +1,10 @@
 import React from "react";
 import { formatCurrency } from "../helpers/helper";
 import MilMomBtn from "./MilMomBtn";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderContainer({ order }) {
+  const navigate = useNavigate()
   return (
     <>
       {order?.orderDetails.map((od) => (
@@ -35,6 +37,7 @@ export default function OrderContainer({ order }) {
                 <>
                   <MilMomBtn content="ĐÁNH GIÁ" className="rounded-xl mx-2 border border-black" />
                   <MilMomBtn
+                  onClick={() => navigate(`/productDetail/${od?.product?.productID}`)}
                     content="MUA LẠI"
                     bg="bg-white"
                     className="rounded-xl mx-2 border border-black"
