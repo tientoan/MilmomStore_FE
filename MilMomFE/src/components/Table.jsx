@@ -63,14 +63,14 @@ export const cartHeader = [
   {
     content: "Đơn giá",
     id: "price",
-    format: (cart, next=undefined) => <>{formatCurrency(cart.product?.unitPrice)}</>,
+    format: (cart, next=undefined) => <>{formatCurrency(cart.product?.purchasePrice)}</>,
     width: "w-2/12",
   },
   {
     content: "Tổng tiền",
     id: "price",
     format: (cart, next=undefined) => (
-      <>{formatCurrency(cart.product?.unitPrice * cart.quantity)}</>
+      <>{formatCurrency(cart.product?.purchasePrice * cart.quantity)}</>
     ),
     width: "w-2/12",
   },

@@ -31,6 +31,9 @@ function OrderManager() {
       setOrder(result.data);
     });
   }, [status, date]);
+
+ 
+
   const Completed   = useCallback(( order) => {
   putService(`${updateOrderStatus}?orderId=${order.orderID}&status=4`).then(() => {
     getOrders()
@@ -45,6 +48,13 @@ function OrderManager() {
   useEffect(() => {
     getOrders();
   }, [status, date]);
+
+  const Shipping   = useCallback(( order) => {
+    putService(`${updateOrderStatus}?orderId=${order.orderID}&status=2`).then(() => {
+      getOrders()
+    })
+    },[status,date])
+
   return (
     <div className="py-5">
       <div className="py-5 bg-red-100 rounded-lg min-h-screen text-sm">
@@ -80,7 +90,7 @@ function OrderManager() {
           />
         </div>
         <div className="px-20">
-          <ManagerTable onDelete={Cancelled} onApprove={Completed} deleteContent="Hủy" approveContent="Xác nhận" datas={orders} headerTable={orderManagerHeader} />
+          <ManagerTable onDelete={Cancelled} onApprove={Shipping} deleteContent="Hủy" approveContent="Xác nhận" datas={orders} headerTable={orderManagerHeader} />
         </div>
 
         <div className="mt-20">

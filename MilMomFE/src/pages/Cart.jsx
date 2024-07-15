@@ -11,6 +11,7 @@ import { checkout, get_del_Cart_byAccountId, checkout_cod } from "../api/apis";
 import { provinesAtom } from "../atom/provinesAtom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../helpers/helper";
 
 export default function Cart() {
   const [account, setAccount] = useRecoilState(accountAtom);
@@ -22,6 +23,8 @@ export default function Cart() {
   const [selectedWard, setSelectedWard] = useState();
   const [paymentMethod, setPaymentMethod] = useState('');
   const navigate = useNavigate();
+  //
+  const amount = cart?.reduce((acc, cart) => acc + cart.price * cart.quantity, 0);
 
   const buy = useCallback(() => {
     if (!cart || cart?.length < 1) {
@@ -46,7 +49,7 @@ export default function Cart() {
       toast.warning("Chọn phương thức thanh toán")
       return;
     }
-    const checkoutUrl = paymentMethod === 'Ship Cod' ? checkout_cod : checkout;
+    const checkoutUrl = paymentMethod === 'ShipCod' ? checkout_cod : checkout;
     postService(`${checkoutUrl}?accountId=${account.userID}`, {
       ...reciveAccount,
       provinceCode: seletedProvine.id,
@@ -56,8 +59,8 @@ export default function Cart() {
     }).then(result => {
       console.log(result)
       getCart()
-      if(checkoutUrl == checkout_cod){
-        navigate(`/paymentsuccess/${result.data.orderID}`);
+      if (checkoutUrl === checkout_cod) {
+        navigate(`/paymentsuccess/${result.orderID}`);
       } else {
         window.open(result, '_blank');
       }
@@ -86,10 +89,8 @@ export default function Cart() {
       setCart(result.data.cartItem);
 
       // Calculate total
-    const total = result.data.cartItem.reduce((acc, item) => {
-      return acc + (item.quantity * item.price);
-    }, 0);
-    });
+      
+  }, 0);
   });
 
   const onChangeProvine = (id) => {
@@ -138,7 +139,7 @@ export default function Cart() {
             <div className="w-1/4 font-medium">
               <div className="flex justify-between">
                 <span className="text-neutral-400">Tạm tính</span>
-                <span>0</span>
+                <span>{formatCurrency(amount)}</span>
               </div>
               <div className="flex justify-between mt-5">
                 <span className="text-neutral-400">Tiền Ship</span>
@@ -265,7 +266,7 @@ export default function Cart() {
             <div className="bg-white border flex items-center py-2 px-5 border-black rounded-2xl w-full mb-3">
               <input className="mr-7" name="payment" 
               type="radio" 
-              onChange={() => setPaymentMethod('Ship Cod')}
+              onChange={() => setPaymentMethod('ShipCod')}
               />{" "}
               <span>Ship Cod</span>
             </div>

@@ -49,7 +49,9 @@ const Navbar = () => {
         {account ? (
           <>
           <div className="w-1/12">
-            <img src={blankAvatar} className="rounded-full" />
+            <img 
+              onClick={() => navigate("/profile")}
+              src={blankAvatar} className="rounded-full" />
           </div>
            <MilMomBtn
            onClick={() => {

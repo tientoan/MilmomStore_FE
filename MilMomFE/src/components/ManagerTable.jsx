@@ -62,7 +62,7 @@ export const orderManagerHeader = [
     width: "w-2/12",
     format: (order) => order.shippingInfor.receiverName,
   },
-
+ 
   {
     content: "SỐ ĐIỆN THOẠI",
     id: "phone",
@@ -88,7 +88,125 @@ export const orderManagerHeader = [
         </>
       )),
   },
+  {
+    content: "TRẠNG THÁI",
+    id: "status",
+    width: "w-1/12",
+    format: (order) => {
+      const orderStatusMap = {
+        0: "Chờ Thanh Toán",
+        1: "Chờ Xác Nhận",
+        2: "Đang Giao Hàng",
+        3: "Đã Nhận Hàng",
+        4: "Đã Hoàn Tất",
+        5: "Đã Hủy",
+        6: "Chờ Hoàn Tiền",
+        7: "Yêu Cầu Trả Hàng",
+      };
+ 
+      const statusClasses = {
+        0: "text-yellow-500",
+        1: "text-blue-500",
+        2: "text-orange-500",
+        3: "text-purple-500",
+        4: "text-green-500",
+        5: "text-red-500",
+        6: "text-pink-500",
+        7: "text-teal-500",
+      };
+ 
+      return (
+        <span className={statusClasses[order.status]}>
+          {orderStatusMap[order.status]}
+        </span>
+      );
+    },
+  },
 ];
+
+function ManagerTable({
+  indexHeader = undefined,
+  bg = "bg-red-300",
+  headerTable,
+  datas = [],
+  isDelete = true,
+  onApprove = () => {},
+  approveContent = "",
+  onDelete = () => {},
+  deleteContent = "",
+  next = () => {},
+}) {
+  const hidden = (event) => {
+    const div = event.target.parentNode.parentNode.querySelector("div")
+    console.log(event.target.parentNode.parentNode)
+    console.log(div)
+    if(!div.classList.contains('hidden')){
+      div.classList.add('hidden')
+    }else{
+      div.classList.remove('hidden')
+    };
+  };
+  const hiddenStatuses = [0, 2, 4, 5]; // Chờ Thanh Toán, Đang Giao Hàng, Đã Hoàn Tất, Đã Hủy
+ 
+  // Check if any order has a status in hiddenStatuses
+  const shouldHideActions = datas.some(order => hiddenStatuses.includes(order.status));
+ 
+  return (
+    <div className="bg-white">
+      <table>
+        <thead>
+          <tr className={`${bg} px-5 uppercase`}>
+            {indexHeader && (
+              <td className="py-3 text-center px-3 font-medium border border-black">{indexHeader}</td>
+            )}
+            {headerTable.map((header) => (
+              <th
+                className={`py-3 text-center font-medium px-5 text-wrap border border-black ${header?.width}`}
+              >
+                {header?.header ? header.header() : header?.content}
+              </th>
+            ))}
+            {isDelete && !shouldHideActions && (
+              <td className="px-3 w-2/12 text-center font-medium border border-black">
+                TÙY CHỈNH
+              </td>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {datas
+            ? datas?.map((data, index) => (
+                <tr className="font-medium">
+                  {indexHeader && (
+                    <td className="text-center py-10">{index + 1}</td>
+                  )}
+                  {headerTable.map((header) => (
+                    <td className="text-center py-5 px-5 border border-black">
+                      {header?.format
+                        ? header.format(data, next)
+                        : data[header?.id]}
+                    </td>
+                  ))}
+                  {isDelete && !shouldHideActions && (
+                    <td className="text-center border border-black ">
+                      <button onClick={hidden}>
+                        <Icon icon="charm:menu-kebab" />
+                      </button>
+                      <div className="hidden absolute p-3 border border-red-300 rounded-lg bg-white right-5">
+                        <MilMomBtn onClick={() => onApprove(data)} content={approveContent} className="mb-3 rounded-md" bg="bg-orange-300" />
+                        <MilMomBtn onClick={() => onDelete(data)} content={deleteContent} className="mb-3 rounded-md" text="text-white"/>
+                      </div>
+                    </td>
+                  )}
+                </tr>
+              ))
+            : ""}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 
 export const reportManagerHeader = [
   {
@@ -228,100 +346,6 @@ export const productManagerHeader = [
   },
 ];
 
-function ManagerTable({
-  indexHeader = undefined,
-  bg = "bg-red-300",
-  headerTable,
-  datas = [],
-  isDelete = true,
-  isApprove = true,
-  onApprove = () => {},
-  approveContent = "",
-  onDelete = () => {},
-  deleteContent = "",
-  next = () => {},
-}) {
-  const hidden = (event) => {
-    const div = event.target.parentNode.parentNode.querySelector("div");
-    console.log(event.target.parentNode.parentNode);
-    console.log(div);
-    if (!div.classList.contains("hidden")) {
-      div.classList.add("hidden");
-    } else {
-      div.classList.remove("hidden");
-    }
-  };
-  return (
-    <div className="bg-white">
-      <table>
-        <thead>
-          <tr className={`${bg} px-5 uppercase`}>
-            {indexHeader && (
-              <td className="py-3 text-center px-3 font-medium border border-black">
-                {indexHeader}
-              </td>
-            )}
-            {headerTable.map((header) => (
-              <th
-                className={`py-3 text-center font-medium px-5 text-wrap border border-black ${header?.width}`}
-              >
-                {header?.header ? header.header() : header?.content}
-              </th>
-            ))}
-            {isDelete||isApprove && (
-              <td className="px-3 w-2/12 text-center font-medium border border-black">
-                TÙY CHỈNH
-              </td>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {datas
-            ? datas?.map((data, index) => (
-                <tr className="font-medium">
-                  {indexHeader && (
-                    <td className="text-center py-10 border border-black">
-                      {index + 1}
-                    </td>
-                  )}
-                  {headerTable.map((header) => (
-                    <td className="text-center py-5 px-5 border border-black">
-                      {header?.format
-                        ? header.format(data, next)
-                        : data[header?.id]}
-                    </td>
-                  ))}
-                  {isDelete ||
-                    (isApprove && (
-                      <td className="text-center border border-black ">
-                        <button onClick={hidden}>
-                          <Icon icon="charm:menu-kebab" />
-                        </button>
-                        <div className="hidden absolute p-3 border border-red-300 rounded-lg bg-white right-5">
-                          {isApprove && (
-                            <MilMomBtn
-                              onClick={() => onApprove(data)}
-                              content={approveContent}
-                              className="mb-3 rounded-md"
-                              bg="bg-orange-300"
-                            />
-                          )}{" "}
-                          {isDelete&&<MilMomBtn
-                            onClick={() => onDelete(data)}
-                            content={deleteContent}
-                            className="mb-3 rounded-md"
-                            text="text-white"
-                          />}
-                        </div>
-                      </td>
-                    ))}
-                </tr>
-              ))
-            : ""}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+
 
 export default memo(ManagerTable);
