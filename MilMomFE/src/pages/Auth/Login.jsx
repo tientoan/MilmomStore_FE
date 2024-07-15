@@ -7,6 +7,7 @@ import { login } from "../../api/apis";
 import { useRecoilState } from "recoil";
 import { accountAtom } from "../../atom/accountAtom";
 import { toast } from "react-toastify";
+import { setAuthToken } from "../../api/axios.config";
 export default function Login() {
   const [accountA, setAccountAtom] = useRecoilState(accountAtom)
   const [account, setAccount] = useState({
