@@ -38,6 +38,7 @@ export default function Login() {
 
     postService(login, account).then(result => {
       toast.success('Đăng nhập thành công')
+      setAuthToken(result.token)
       localStorage.setItem('account', JSON.stringify(result))
       setAccountAtom(result)
     }).catch((error) => {
